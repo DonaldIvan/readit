@@ -6,7 +6,20 @@ backend/tmp/
 backend/temp/
 
 #Frontend
-
+frontend/node_modules
+frontend/.pnp
+frontend/.pnp.js
+frontend/coverage
+frontend/.next/
+frontend/out/
+frontend/build
+frontend/*.pem
+frontend/.vercel
 
 #All
 /**/*.env
+/**/*.env-*
+/**/*DS_Store*
+/**/*npm-debug.log*
+/**/*yarn-debug.log*
+/**/*yarn-error.log*
