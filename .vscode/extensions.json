@@ -3,7 +3,9 @@
     "esbenp.prettier-vscode",
     "dbaeumer.vscode-eslint",
     "visualstudioexptteam.vscodeintellicode",
-    "pflannery.vscode-versionlens"
+    "pflannery.vscode-versionlens",
+    "bradlc.vscode-tailwindcss",
+    "heybourn.headwind"
   ],
   "unwantedRecommendations": []
 }
