@@ -2,5 +2,10 @@
   "name": "readit",
   "version": "1.0.0",
   "author": "DonaldIvan <developer.donaldivan@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "api": "cd backend && yarn dev",
+    "ui": "cd frontend && yarn dev",
+    "reinstall": "cd backend && rm -rf node_modules && yarn install && cd ../frontend && rm -rf node_modules && yarn install && cd ../"
+  }
 }
