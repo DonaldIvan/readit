@@ -1,0 +1,35 @@
+import 'reflect-metadata';
+import { createConnection } from 'typeorm';
+import express from 'express';
+import morgan from 'morgan';
+import trim from './middleware/trim';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
+
+import auth from './routes/auth';
+import posts from './routes/posts';
+import subs from './routes/subs';
+
+dotenv.config();
+const port = process.env.PORT;
+const app = express();
+
+app.use(express.json());
+app.use(morgan('dev'));
+app.use(trim);
+app.use(cookieParser());
+
+app.get('/', (_, res) => res.send('Hello world'));
+app.use('/api/auth', auth);
+app.use('/api/posts', posts);
+app.use('/api/subs', subs);
+
+app.listen(port, async () => {
+  console.log(`server running at http://localhost:${port}`);
+  try {
+    await createConnection();
+    console.log('Database connected');
+  } catch (error) {
+    console.log(error);
+  }
+});
