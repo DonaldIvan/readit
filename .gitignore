@@ -1,0 +1,12 @@
+#Backend
+backend/.idea/
+backend/node_modules/
+backend/build/
+backend/tmp/
+backend/temp/
+
+#Frontend
+
+
+#All
+/**/*.env
