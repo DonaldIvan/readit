@@ -13,6 +13,7 @@ import Common from './Common';
 import { makeId, slugify } from '../utils/helper';
 import Sub from './Sub';
 import Comment from './Comment';
+import { Expose } from 'class-transformer';
 
 @Entity('posts')
 export default class Post extends Common {
@@ -39,6 +40,9 @@ export default class Post extends Common {
   @Column()
   subName: string;
 
+  @Column()
+  username: string;
+
   @ManyToOne(() => User, (user) => user.posts)
   @JoinColumn({ name: 'username', referencedColumnName: 'username' })
   user: User;
@@ -49,6 +53,10 @@ export default class Post extends Common {
 
   @OneToMany(() => Comment, (comment) => comment.post)
   comments: Comment[];
+
+  @Expose() get url(): string {
+    return `/r/${this.subName}/${this.identifier}/${this.slug}`;
+  }
 
   @BeforeInsert()
   makeIdentifierAndSlug() {
