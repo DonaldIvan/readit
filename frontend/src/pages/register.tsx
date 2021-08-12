@@ -1,7 +1,41 @@
+import React, { useState, FormEvent } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Input from 'components/Input';
+import { useRouter } from 'next/router';
+
+import { register } from 'services/AuthService';
+
+type RegError = {
+  [key: string]: string;
+};
 
 const Register = (): JSX.Element => {
+  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [agreement, setAgreement] = useState(false);
+  const [errors, setErrors] = useState<RegError>({});
+  const router = useRouter();
+
+  const submitHandler = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!agreement) {
+      setErrors((curr) => ({ ...curr, agreement: 'You must agree to T&Cs' }));
+      return;
+    }
+    try {
+      await register({
+        email,
+        username,
+        password,
+      });
+      router.push('/login');
+    } catch (error) {
+      setErrors(error);
+    }
+  };
+
   return (
     <div className="flex">
       <Head>
@@ -10,7 +44,7 @@ const Register = (): JSX.Element => {
       </Head>
 
       <div
-        className="w-40 h-screen bg-center bg-cover"
+        className="h-screen bg-center bg-cover w-36"
         style={{
           backgroundImage: "url('images/bricks.jpg')",
         }}
@@ -21,39 +55,50 @@ const Register = (): JSX.Element => {
           <p className="mb-10 text-xs">
             By continuing, you agree to our User Agreement and Privacy Policy.
           </p>
-          <form>
+          <form onSubmit={submitHandler}>
             <div className="mb-6">
               <input
                 type="checkbox"
                 id="agreement"
                 className="mr1 curson-pointer"
+                checked={agreement}
+                onChange={(e) => setAgreement(e.target.checked)}
               />
               <label htmlFor="agreement" className="text-xs cursor-pointer">
                 I agree to get emails about cool stuff on Reddit
               </label>
+              {errors.agreement && (
+                <small className="block font-medium text-red-600">
+                  {errors.agreement}
+                </small>
+              )}
             </div>
-            <div className="mb-2">
-              <input
-                type="email"
-                className="w-full px-3 py-2 bg-gray-100 border border-gray-400 rounded"
-                placeholder="Email"
-              />
-            </div>
-            <div className="mb-2">
-              <input
-                type="text"
-                className="w-full px-3 py-2 bg-gray-100 border border-gray-400 rounded"
-                placeholder="Username"
-              />
-            </div>
-            <div className="mb-2">
-              <input
-                type="password"
-                className="w-full px-3 py-2 bg-gray-100 border border-gray-400 rounded"
-                placeholder="Password"
-              />
-            </div>
-            <button className="w-full py-2 mb-4 text-xs font-bold text-white uppercase bg-blue-500 border rounded border-blue500">
+            <Input
+              id="email"
+              type="email"
+              value={email}
+              error={errors.email}
+              placeholder="Email"
+              onInputChange={setEmail}
+            />
+            <Input
+              id="username"
+              type="text"
+              value={username}
+              error={errors.username}
+              placeholder="Username"
+              onInputChange={setUsername}
+            />
+            <Input
+              id="password"
+              type="password"
+              value={password}
+              error={errors.password}
+              placeholder="Password"
+              onInputChange={setPassword}
+              wrapperClass="mb-4"
+            />
+            <button className="w-full py-2 mb-4 text-xs font-bold text-white uppercase bg-blue-500 border rounded-full border-blue500">
               Sign up
             </button>
           </form>

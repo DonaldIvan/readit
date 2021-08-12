@@ -28,3 +28,10 @@ export const slugify = (str: string): string => {
     .replace(/-+$/, '')
     .replace(/-/g, '-');
 };
+
+export const serverErrorMapper = (errors: Object[]): any => {
+  return errors.reduce((current: any, error: any) => {
+    current[error.property] = Object.entries(error.constraints)[0][1];
+    return current;
+  }, {});
+};

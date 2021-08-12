@@ -58,7 +58,6 @@ const getPost = async (req: Request, res: Response) => {
     );
     return res.json(post);
   } catch (error) {
-    console.log(error);
     return res.status(404).json({ error: 'Post not found' });
   }
 };

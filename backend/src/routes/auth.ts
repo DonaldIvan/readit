@@ -6,11 +6,11 @@ import jwt from 'jsonwebtoken';
 import cookie from 'cookie';
 import auth from '../middleware/auth';
 import { ERROR_500 } from '../constants/error';
+import { serverErrorMapper } from '../utils/helper';
 
 const register = async (req: Request, res: Response) => {
   const { email, username, password } = req.body;
   try {
-    // todo validate
     let errors: any = {};
     const emailUser = await User.findOne({ email });
     const usernameUser = await User.findOne({ username });
@@ -18,9 +18,15 @@ const register = async (req: Request, res: Response) => {
     emailUser && (errors.email = 'Email is already taken');
     usernameUser && (errors.username = 'Username is already taken');
 
+    if (Object.keys(errors).length) {
+      return res.status(400).json(errors);
+    }
+
     const user = new User({ email, username, password });
     errors = await validate(user);
-    if (errors && errors.length) return res.status(400).json({ errors });
+    if (errors && errors.length) {
+      return res.status(400).json(serverErrorMapper(errors));
+    }
     await user.save();
 
     return res.status(201).json(user);

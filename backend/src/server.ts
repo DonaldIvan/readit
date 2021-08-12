@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import trim from './middleware/trim';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 import auth from './routes/auth';
 import posts from './routes/posts';
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(trim);
 app.use(cookieParser());
+app.use(cors());
 
 app.get('/', (_, res) => res.send('Hello world'));
 app.use('/api/auth', auth);
@@ -28,7 +30,6 @@ app.listen(port, async () => {
   console.log(`server running at http://localhost:${port}`);
   try {
     await createConnection();
-    console.log('Database connected');
   } catch (error) {
     console.log(error);
   }
