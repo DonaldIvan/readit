@@ -4,29 +4,22 @@ import Link from 'next/link';
 import Input from 'components/Input';
 import { useRouter } from 'next/router';
 
-import { register } from 'services/AuthService';
+import { login } from 'services/AuthService';
 
 type RegError = {
   [key: string]: string;
 };
 
-const Register = (): JSX.Element => {
-  const [email, setEmail] = useState('');
+const Login = (): JSX.Element => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [agreement, setAgreement] = useState(false);
   const [errors, setErrors] = useState<RegError>({});
   const router = useRouter();
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
-    if (!agreement) {
-      setErrors((curr) => ({ ...curr, agreement: 'You must agree to T&Cs' }));
-      return;
-    }
     try {
-      await register({
-        email,
+      await login({
         username,
         password,
       });
@@ -39,7 +32,7 @@ const Register = (): JSX.Element => {
   return (
     <div className="flex">
       <Head>
-        <title>Register</title>
+        <title>Login</title>
       </Head>
 
       <div
@@ -50,36 +43,11 @@ const Register = (): JSX.Element => {
       ></div>
       <div className="flex flex-col justify-center pl-6">
         <div className="w-70">
-          <h1 className="mb-2 text-lg font-medium">Sign up</h1>
+          <h1 className="mb-2 text-lg font-medium">Login</h1>
           <p className="mb-10 text-xs">
             By continuing, you agree to our User Agreement and Privacy Policy.
           </p>
           <form onSubmit={submitHandler}>
-            <div className="mb-6">
-              <input
-                type="checkbox"
-                id="agreement"
-                className="mr1 curson-pointer"
-                checked={agreement}
-                onChange={(e) => setAgreement(e.target.checked)}
-              />
-              <label htmlFor="agreement" className="text-xs cursor-pointer">
-                I agree to get emails about cool stuff on Reddit
-              </label>
-              {errors.agreement && (
-                <small className="block font-medium text-red-600">
-                  {errors.agreement}
-                </small>
-              )}
-            </div>
-            <Input
-              id="email"
-              type="email"
-              value={email}
-              error={errors.email}
-              placeholder="Email"
-              onInputChange={setEmail}
-            />
             <Input
               id="username"
               type="text"
@@ -95,16 +63,19 @@ const Register = (): JSX.Element => {
               error={errors.password}
               placeholder="Password"
               onInputChange={setPassword}
-              wrapperClass="mb-4"
+              wrapperClass="mb-0"
             />
-            <button className="w-full py-2 mb-4 text-xs font-bold text-white uppercase bg-blue-500 border rounded-full border-blue500">
-              Sign up
+            {errors && errors.error && (
+              <small className="font-medium text-red-600">{errors.error}</small>
+            )}
+            <button className="w-full py-2 mt-4 mb-4 text-xs font-bold text-white uppercase bg-blue-500 border rounded-full border-blue500">
+              Login
             </button>
           </form>
           <small>
-            Already a redditor?
-            <Link href="/login">
-              <a className="ml-1 text-blue-500 uppercase">Log in</a>
+            New to Readit?
+            <Link href="/register">
+              <a className="ml-1 text-blue-500 uppercase">Sign up</a>
             </Link>
           </small>
         </div>
@@ -113,4 +84,4 @@ const Register = (): JSX.Element => {
   );
 };
 
-export default Register;
+export default Login;

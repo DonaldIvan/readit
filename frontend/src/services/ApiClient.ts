@@ -16,6 +16,7 @@ class Http {
     const http = axios.create({
       baseURL: 'http://localhost:8001/api',
       headers,
+      withCredentials: true,
     });
 
     http.interceptors.response.use(
