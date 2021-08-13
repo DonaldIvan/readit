@@ -5,6 +5,7 @@ import { Exclude } from 'class-transformer';
 
 import Common from './Common';
 import Post from './Post';
+import Vote from './Vote';
 
 @Entity('users')
 export default class User extends Common {
@@ -31,6 +32,9 @@ export default class User extends Common {
 
   @OneToMany(() => Post, (post) => post.user)
   posts: Post[];
+
+  @OneToMany(() => Vote, (vote) => vote.user)
+  votes: Vote[];
 
   @BeforeInsert()
   async hashPassword() {
