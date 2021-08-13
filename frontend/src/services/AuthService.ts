@@ -1,4 +1,4 @@
-import { IResponseDate } from 'types/common';
+import { IResponseDate } from 'types';
 import http from './ApiClient';
 
 type RegisterPayload = {

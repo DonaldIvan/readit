@@ -62,7 +62,7 @@ const login = async (req: Request, res: Response) => {
         path: '/',
       }),
     );
-    return res.json({ user });
+    return res.json(user);
   } catch (error) {
     return res.status(404).json({
       error: error.message,

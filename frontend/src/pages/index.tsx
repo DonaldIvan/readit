@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import PostCard from 'components/PostCard';
 
-import { getPosts, IPost } from 'services/PostService';
+import { getPosts } from 'services/PostService';
+import { IPost } from 'types';
 // import { GetServerSideProps } from 'next';
 
 export default function Home(): JSX.Element {

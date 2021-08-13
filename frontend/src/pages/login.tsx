@@ -23,7 +23,7 @@ const Login = (): JSX.Element => {
         username,
         password,
       });
-      router.push('/login');
+      router.push('/');
     } catch (error) {
       setErrors(error);
     }
