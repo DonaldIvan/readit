@@ -2,6 +2,7 @@ import type { AppProps } from 'next/app';
 import { useRouter } from 'next/router';
 import Navbar from 'components/Navbar';
 import 'styles/tailwind.css';
+import 'styles/icons.css';
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   const { pathname } = useRouter();

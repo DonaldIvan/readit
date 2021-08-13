@@ -9,6 +9,9 @@ export interface IPost extends IResponseDate {
   subName: string;
   username: string;
   url: string;
+  voteScore?: number;
+  commentCount?: number;
+  userVote?: number;
 }
 
 export const getPosts = async (): Promise<IPost[]> => {
