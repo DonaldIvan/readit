@@ -30,3 +30,13 @@ export const login = async (
   const { data } = await http.post('/auth/login', payload);
   return data;
 };
+
+export const me = async (): Promise<IRegisterAndLoginResponse> => {
+  const { data } = await http.get('/auth/me');
+  return data;
+};
+
+export const logout = async (): Promise<{ success: boolean }> => {
+  const { data } = await http.get('/auth/logout');
+  return data;
+};

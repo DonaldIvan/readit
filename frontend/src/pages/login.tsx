@@ -4,7 +4,9 @@ import Link from 'next/link';
 import Input from 'components/Input';
 import { useRouter } from 'next/router';
 
-import { login } from 'services/AuthService';
+import { login as loginService } from 'services/AuthService';
+
+import { useAuthState } from 'context/auth';
 
 type RegError = {
   [key: string]: string;
@@ -15,14 +17,18 @@ const Login = (): JSX.Element => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<RegError>({});
   const router = useRouter();
+  const { login, authenticated } = useAuthState();
+  authenticated && router.push('/');
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await login({
+      const res = await loginService({
         username,
         password,
       });
+      console.log(res);
+      login(res);
       router.push('/');
     } catch (error) {
       setErrors(error);

@@ -16,7 +16,7 @@ export interface IPost extends IResponseDate {
   userVote?: number;
 }
 
-export interface User extends IResponseDate {
+export interface IUser extends IResponseDate {
   email: string;
   username: string;
 }

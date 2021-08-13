@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 
 import { register } from 'services/AuthService';
 
+import { useAuthState } from 'context/auth';
+
 type RegError = {
   [key: string]: string;
 };
@@ -17,6 +19,8 @@ const Register = (): JSX.Element => {
   const [agreement, setAgreement] = useState(false);
   const [errors, setErrors] = useState<RegError>({});
   const router = useRouter();
+  const { authenticated } = useAuthState();
+  authenticated && router.push('/');
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
