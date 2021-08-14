@@ -1,35 +1,25 @@
-import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import PostCard from 'components/PostCard';
 
-import { getPosts } from 'services/PostService';
-import { IPost } from 'types';
-// import { GetServerSideProps } from 'next';
+import useSWR from 'swr';
 
 export default function Home(): JSX.Element {
-  const [posts, setPost] = useState<IPost[]>([]);
-  const getLists = async () => {
-    try {
-      const data = await getPosts();
-      setPost(data);
-    } catch (error) {}
-  };
-  useEffect(() => {
-    getLists();
-  }, []);
+  const { data } = useSWR('/posts');
+  const posts = data || [];
+
   return (
-    <div className="pt-12">
+    <>
       <Head>
         <title>readit: the front page of the internet</title>
       </Head>
-      <div className="container flex pt-4">
+      <div className="container flex pt-5">
         <div className="w-160">
           {posts.map((post) => (
             <PostCard post={post} key={post.identifier} />
           ))}
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

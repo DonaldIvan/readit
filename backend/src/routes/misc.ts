@@ -17,7 +17,6 @@ const vote = async (req: Request, res: Response) => {
     });
   }
   const user: User = res.locals.user;
-  console.log('user is here', user);
   try {
     let post = await Post.findOneOrFail({ identifier, slug });
     let vote: Vote | undefined;

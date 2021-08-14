@@ -27,7 +27,6 @@ const Login = (): JSX.Element => {
         username,
         password,
       });
-      console.log(res);
       login(res);
       router.push('/');
     } catch (error) {

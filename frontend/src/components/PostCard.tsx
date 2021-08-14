@@ -40,15 +40,12 @@ const PostCard = ({ post }: PostCardProps): JSX.Element => {
 
   const vote = async (value: number) => {
     try {
-      const data = postVote({
+      postVote({
         value,
         slug,
         identifier,
       });
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
   return (
     <div className="flex mb-4 bg-white rounded">
@@ -77,15 +74,13 @@ const PostCard = ({ post }: PostCardProps): JSX.Element => {
       </div>
       <div className="w-full p-2">
         <div className="flex items-center">
+          <img
+            src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
+            className="w-6 h-6 mr-1 rounded-full"
+            alt={subLink}
+          />
           <Link href={subLink}>
-            <>
-              <img
-                src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
-                className="w-6 h-6 mr-1 rounded-full cursor-pointer"
-                alt={subLink}
-              />
-              <a className="font-bold text-ts hover:underline">{subLink}</a>
-            </>
+            <a className="font-bold text-ts hover:underline">{subLink}</a>
           </Link>
           <p className="text-xs text-gray-500">
             <span className="mx-1">•</span>
