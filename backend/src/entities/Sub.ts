@@ -38,6 +38,9 @@ export default class Sub extends Common {
   @JoinColumn({ name: 'username', referencedColumnName: 'username' })
   user: User;
 
+  @Column()
+  username: string;
+
   @OneToMany(() => Post, (post) => post.sub)
   posts: Post[];
 }

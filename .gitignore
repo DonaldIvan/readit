@@ -4,6 +4,7 @@ backend/node_modules/
 backend/build/
 backend/tmp/
 backend/temp/
+backend/public/
 
 #Frontend
 frontend/node_modules
