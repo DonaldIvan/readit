@@ -28,6 +28,7 @@ const createPost = async (req: Request, res: Response) => {
     await post.save();
     return res.status(201).json(post);
   } catch (error) {
+    console.log(error);
     return res.status(500).json(ERROR_500);
   }
 };
@@ -110,7 +111,6 @@ const getPostComments = async (req: Request, res: Response) => {
 
     return res.json(comments);
   } catch (err) {
-    console.log(err);
     return res.status(500).json(ERROR_500);
   }
 };

@@ -43,7 +43,7 @@ const Sub = (): JSX.Element => {
     formData.append('type', fileInputRef.current!.name);
     try {
       await uploadImageSub(formData, sub.name);
-      revalidate();
+      await revalidate();
     } catch (error) {}
   };
 
@@ -61,7 +61,7 @@ const Sub = (): JSX.Element => {
     display = <p className="text-lg text-center">No posts submitted yet</p>;
   } else {
     display = sub.posts.map((post) => (
-      <PostCard post={post} key={post.identifier} />
+      <PostCard post={post} key={post.identifier} voteCallBack={revalidate} />
     ));
     bannerUrl = sub.bannerUrl;
   }

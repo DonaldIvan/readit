@@ -69,9 +69,7 @@ const PostPage = (): JSX.Element => {
       setNewComment('');
 
       await revalidate();
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   return (

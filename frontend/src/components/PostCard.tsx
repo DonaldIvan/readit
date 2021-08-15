@@ -15,9 +15,10 @@ import ActionButton from 'components/ActionButton';
 
 type PostCardProps = {
   post: IPost;
+  voteCallBack?: () => void;
 };
 
-const PostCard = ({ post }: PostCardProps): JSX.Element => {
+const PostCard = ({ post, voteCallBack }: PostCardProps): JSX.Element => {
   const {
     subName,
     username,
@@ -41,6 +42,7 @@ const PostCard = ({ post }: PostCardProps): JSX.Element => {
         slug,
         identifier,
       });
+      voteCallBack && (await voteCallBack());
     } catch (error) {}
   };
   return (
