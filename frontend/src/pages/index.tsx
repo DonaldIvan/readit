@@ -6,6 +6,8 @@ import { IPost, ISub } from 'types';
 import useSWR, { useSWRInfinite } from 'swr';
 import Link from 'next/link';
 import { useAuthState } from '../context/auth';
+const title = 'readit: the front page of the internet';
+const description = `Reddit is a network of communities where people can dive into their interests, hobbies and passions. There's a community for whatever you're interested in on Reddit.`;
 
 export default function Home(): JSX.Element {
   const [observedPost, setObservedPost] = useState('');
@@ -14,11 +16,14 @@ export default function Home(): JSX.Element {
 
   const {
     data,
-    isValidating,
     size: page,
     setSize: setPage,
     revalidate,
+    error,
+    isValidating,
   } = useSWRInfinite((index) => `/posts?page=${index}`);
+
+  const isInitialLoading = !data && !error;
 
   const observeElement = useCallback(
     (element: HTMLElement) => {
@@ -56,11 +61,16 @@ export default function Home(): JSX.Element {
   return (
     <>
       <Head>
-        <title>readit: the front page of the internet</title>
+        <title>{title}</title>
+        <meta name="og:title" content={title} />
+        <meta name="twitter:title" content={title} />
+        <meta name="description" content={description} />
+        <meta name="og:description" content={description} />
+        <meta name="twitter:description" content={description} />
       </Head>
       <div className="container flex pt-5">
         <div className="w-full px-4 md:w-160 md:p-0">
-          {isValidating && <p className="text-lg text-center">Loading..</p>}
+          {isInitialLoading && <p className="text-lg text-center">Loading..</p>}
           {posts?.map((post) => (
             <PostCard
               post={post}

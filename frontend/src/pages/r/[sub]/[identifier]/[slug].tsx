@@ -76,6 +76,11 @@ const PostPage = (): JSX.Element => {
     <>
       <Head>
         <title>{post?.title}</title>
+        <meta name="og:title" content={post?.title} />
+        <meta name="twitter:title" content={post?.title} />
+        <meta name="description" content={post?.body || post?.title} />
+        <meta name="og:description" content={post?.body || post?.title} />
+        <meta name="twitter:description" content={post?.body || post?.title} />
       </Head>
       <Link href={`/r/${sub}`}>
         <a>

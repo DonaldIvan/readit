@@ -14,7 +14,7 @@ import classes from 'classnames';
 import ActionButton from 'components/ActionButton';
 
 import { useAuthState } from 'context/auth';
-import router from 'next/router';
+import { useRouter } from 'next/router';
 
 type PostCardProps = {
   post: IPost;
@@ -34,9 +34,12 @@ const PostCard = ({ post, voteCallBack }: PostCardProps): JSX.Element => {
     slug,
     identifier,
     userVote,
+    sub,
   } = post;
+  const router = useRouter();
   const subLink = `/r/${subName}`;
   const userLink = `/u/${username}`;
+  const isInSubPage = router.pathname === '/r/[sub]';
   const { authenticated } = useAuthState();
 
   const vote = async (value: number) => {
@@ -78,16 +81,26 @@ const PostCard = ({ post, voteCallBack }: PostCardProps): JSX.Element => {
       </div>
       <div className="w-full p-2">
         <div className="flex items-center">
-          <img
-            src="https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y"
-            className="w-6 h-6 mr-1 rounded-full"
-            alt={subLink}
-          />
-          <Link href={subLink}>
-            <a className="font-bold text-ts hover:underline">{subLink}</a>
-          </Link>
+          {!isInSubPage && (
+            <>
+              <Link href={subLink}>
+                <a>
+                  <img
+                    src={sub?.imageUrl}
+                    className="w-6 h-6 mr-1 rounded-full cursor-pointer"
+                    alt={subLink}
+                  />
+                </a>
+              </Link>
+
+              <Link href={subLink}>
+                <a className="font-bold text-ts hover:underline">{subLink}</a>
+              </Link>
+              <span className="mx-1 text-xs text-gray-500">•</span>
+            </>
+          )}
+
           <p className="text-xs text-gray-500">
-            <span className="mx-1">•</span>
             Posted by
             <Link href={userLink}>
               <a className="mx-1 hover:underline">{userLink}</a>

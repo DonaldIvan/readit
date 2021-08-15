@@ -5,6 +5,8 @@ const headers: Readonly<Record<string, string | boolean>> = {
   'Content-Type': 'application/json; charset=utf-8',
 };
 
+const apiUrl = `${process.env.NEXT_PUBLIC_SERVER_BASE_URL}/api`;
+
 class Http {
   private instance: AxiosInstance | null = null;
 
@@ -14,7 +16,7 @@ class Http {
 
   initHttp() {
     const http = axios.create({
-      baseURL: 'http://localhost:8001/api',
+      baseURL: apiUrl,
       headers,
       withCredentials: true,
     });
@@ -74,7 +76,7 @@ class Http {
 }
 
 export const fetcher = async (url: string) => {
-  axios.defaults.baseURL = 'http://localhost:8001/api';
+  axios.defaults.baseURL = apiUrl;
   axios.defaults.withCredentials = true;
   try {
     const { data } = await axios.get(url);
