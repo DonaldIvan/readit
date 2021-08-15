@@ -13,6 +13,9 @@ import classes from 'classnames';
 
 import ActionButton from 'components/ActionButton';
 
+import { useAuthState } from 'context/auth';
+import router from 'next/router';
+
 type PostCardProps = {
   post: IPost;
   voteCallBack?: () => void;
@@ -34,11 +37,14 @@ const PostCard = ({ post, voteCallBack }: PostCardProps): JSX.Element => {
   } = post;
   const subLink = `/r/${subName}`;
   const userLink = `/u/${username}`;
+  const { authenticated } = useAuthState();
 
   const vote = async (value: number) => {
+    if (!authenticated) router.push('/login');
+    const voteValue = userVote === value ? 0 : value;
     try {
       await postVote({
-        value,
+        value: voteValue,
         slug,
         identifier,
       });
@@ -46,7 +52,7 @@ const PostCard = ({ post, voteCallBack }: PostCardProps): JSX.Element => {
     } catch (error) {}
   };
   return (
-    <div className="flex mb-4 bg-white rounded">
+    <div className="flex mb-4 bg-white rounded" id={identifier}>
       <div className="w-10 py-3 text-center bg-gray-200 rounded-l">
         <div
           className="w-6 mx-auto text-gray-400 rounded cursor-pointer hover:bg-gray-300 hover:text-red-500"
