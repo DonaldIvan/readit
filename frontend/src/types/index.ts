@@ -20,3 +20,15 @@ export interface IUser extends IResponseDate {
   email: string;
   username: string;
 }
+
+export interface ISub extends IResponseDate {
+  name: string;
+  title: string;
+  description: string;
+  imageUrn: string;
+  bannerUrn: string;
+  username: string;
+  imageUrl: string;
+  bannerUrl: string;
+  posts: IPost[];
+}

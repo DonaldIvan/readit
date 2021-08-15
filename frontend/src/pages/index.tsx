@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import PostCard from 'components/PostCard';
-
+import { IPost } from 'types';
 import useSWR from 'swr';
 
 export default function Home(): JSX.Element {
-  const { data } = useSWR('/posts');
+  const { data } = useSWR<IPost[]>('/posts');
   const posts = data || [];
 
   return (
