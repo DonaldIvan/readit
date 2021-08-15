@@ -9,6 +9,7 @@ import { ISub } from 'types';
 import { useAuthState } from 'context/auth';
 import { uploadImageSub } from 'services/SubService';
 import classes from 'classnames';
+import Sidebar from 'components/Sidebar';
 
 enum IMAGE_TYPE {
   IMAGE = 'image',
@@ -119,6 +120,7 @@ const Sub = (): JSX.Element => {
           </div>
           <div className="container flex pt-5">
             <div className="w-160">{display}</div>
+            <Sidebar sub={sub} />
           </div>
         </>
       )}

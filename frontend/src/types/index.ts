@@ -31,4 +31,5 @@ export interface ISub extends IResponseDate {
   imageUrl: string;
   bannerUrl: string;
   posts: IPost[];
+  postCount?: number;
 }

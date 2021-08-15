@@ -1,9 +1,11 @@
 import { Router, Request, Response } from 'express';
+import { getConnection } from 'typeorm';
 
 import Post from '../entities/Post';
 import User from '../entities/User';
 import Vote from '../entities/Vote';
 import Comment from '../entities/Comment';
+import Sub from '../entities/Sub';
 
 import auth from '../middleware/auth';
 import { ERROR_500 } from '../constants/error';
@@ -58,7 +60,29 @@ const vote = async (req: Request, res: Response) => {
   }
 };
 
+const topSubs = async (_: Request, res: Response) => {
+  try {
+    const imageUrlExp = `COALESCE('${process.env.APP_URL}/images/' || s."imageUrn" , 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y')`;
+    const subs = await getConnection()
+      .createQueryBuilder()
+      .select(
+        `s.title, s.name, ${imageUrlExp} as "imageUrl", count(p.id) as "postCount"`,
+      )
+      .from(Sub, 's')
+      .leftJoin(Post, 'p', `s.name = p."subName"`)
+      .groupBy('s.title, s.name, "imageUrl"')
+      .orderBy(`"postCount"`, 'DESC')
+      .limit(5)
+      .execute();
+
+    return res.json(subs);
+  } catch (err) {
+    return res.status(500).json(ERROR_500);
+  }
+};
+
 const router = Router();
 router.post('/vote', user, auth, vote);
+router.get('/top-subs', topSubs);
 
 export default router;
