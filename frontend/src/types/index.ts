@@ -43,3 +43,7 @@ export interface IComment extends IResponseDate {
   voteScore: number;
   post?: IPost;
 }
+
+export type TError = {
+  [key: string]: string;
+};

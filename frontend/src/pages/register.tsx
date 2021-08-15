@@ -8,16 +8,14 @@ import { register } from 'services/AuthService';
 
 import { useAuthState } from 'context/auth';
 
-type RegError = {
-  [key: string]: string;
-};
+import { TError } from 'types';
 
 const Register = (): JSX.Element => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [agreement, setAgreement] = useState(false);
-  const [errors, setErrors] = useState<RegError>({});
+  const [errors, setErrors] = useState<TError>({});
   const router = useRouter();
   const { authenticated } = useAuthState();
   authenticated && router.push('/');

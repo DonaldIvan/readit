@@ -4,10 +4,12 @@ import PostCard from 'components/PostCard';
 import { IPost, ISub } from 'types';
 import useSWR from 'swr';
 import Link from 'next/link';
+import { useAuthState } from '../context/auth';
 
 export default function Home(): JSX.Element {
   const { data: posts } = useSWR<IPost[]>('/posts');
   const { data: topSubs } = useSWR<ISub[]>('/misc/top-subs');
+  const { authenticated } = useAuthState();
 
   return (
     <>
@@ -20,7 +22,7 @@ export default function Home(): JSX.Element {
             <PostCard post={post} key={post.identifier} />
           ))}
         </div>
-        <div className="ml-6 w-80">
+        <div className="hidden ml-6 md:block w-80">
           <div className="bg-white rounded">
             <div className="p-4 border-b-2">
               <p className="text-lg font-semibold text-center">
@@ -33,13 +35,17 @@ export default function Home(): JSX.Element {
                   key={sub.name}
                   className="flex items-center px-4 py-2 text-xs border-b"
                 >
-                  <Image
-                    src={sub.imageUrl}
-                    alt="Sub"
-                    width={(6 * 16) / 4}
-                    height={(6 * 16) / 4}
-                    className="rounded-full cursor-pointer"
-                  />
+                  <Link href={`/r/${sub.name}`}>
+                    <a>
+                      <Image
+                        src={sub.imageUrl}
+                        alt="Sub"
+                        width={(6 * 16) / 4}
+                        height={(6 * 16) / 4}
+                        className="rounded-full cursor-pointer"
+                      />
+                    </a>
+                  </Link>
                   <Link href={`/r/${sub.name}`}>
                     <a className="ml-2 font-bold hover:cursor-pointer">
                       /r/{sub.name}
@@ -49,6 +55,15 @@ export default function Home(): JSX.Element {
                 </div>
               ))}
             </div>
+            {authenticated && (
+              <div className="p-4 border-t-2">
+                <Link href="/subs/create">
+                  <a className="w-full px-2 py-1 blue button">
+                    Create Community
+                  </a>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>
