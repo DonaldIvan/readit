@@ -36,7 +36,7 @@ const PostCard = ({ post }: PostCardProps): JSX.Element => {
 
   const vote = async (value: number) => {
     try {
-      postVote({
+      await postVote({
         value,
         slug,
         identifier,

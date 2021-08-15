@@ -34,3 +34,11 @@ export interface ISub extends IResponseDate {
   posts: IPost[];
   postCount?: number;
 }
+
+export interface IComment extends IResponseDate {
+  identifier: string;
+  body: string;
+  username: string;
+  userVote: number;
+  voteScore: number;
+}
