@@ -24,8 +24,6 @@ const PostPage = (): JSX.Element => {
   const { data: post, error } = useSWR<IPost>(
     identifier && slug ? `/posts/${identifier}/${slug}` : null,
   );
-  console.log(post);
-
   if (error) router.push('/');
 
   const vote = async (value: number) => {

@@ -75,6 +75,7 @@ class Http {
 
 export const fetcher = async (url: string) => {
   axios.defaults.baseURL = 'http://localhost:8001/api';
+  axios.defaults.withCredentials = true;
   try {
     const { data } = await axios.get(url);
     return data;
