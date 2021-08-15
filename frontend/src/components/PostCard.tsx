@@ -11,15 +11,11 @@ import { postVote } from 'services/MiscService';
 
 import classes from 'classnames';
 
+import ActionButton from 'components/ActionButton';
+
 type PostCardProps = {
   post: IPost;
 };
-
-type WithChildren = { children?: React.ReactNode };
-
-const ActionButton = ({ children }: WithChildren) => (
-  <div className="p-1 mr-1 text-xs text-gray-400">{children}</div>
-);
 
 const PostCard = ({ post }: PostCardProps): JSX.Element => {
   const {

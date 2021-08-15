@@ -14,6 +14,7 @@ export interface IPost extends IResponseDate {
   voteScore?: number;
   commentCount?: number;
   userVote?: number;
+  sub?: ISub;
 }
 
 export interface IUser extends IResponseDate {
