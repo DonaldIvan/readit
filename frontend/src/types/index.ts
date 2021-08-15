@@ -41,4 +41,5 @@ export interface IComment extends IResponseDate {
   username: string;
   userVote: number;
   voteScore: number;
+  post?: IPost;
 }

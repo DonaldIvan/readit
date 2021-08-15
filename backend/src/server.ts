@@ -11,6 +11,7 @@ import auth from './routes/auth';
 import posts from './routes/posts';
 import subs from './routes/subs';
 import misc from './routes/misc';
+import user from './routes/users';
 
 dotenv.config();
 const port = process.env.PORT;
@@ -34,6 +35,7 @@ app.use('/api/auth', auth);
 app.use('/api/posts', posts);
 app.use('/api/subs', subs);
 app.use('/api/misc', misc);
+app.use('/api/users', user);
 
 app.listen(port, async () => {
   console.log(`server running at http://localhost:${port}`);
