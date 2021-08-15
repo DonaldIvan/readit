@@ -1,4 +1,4 @@
-import { IPost } from 'types';
+import { IPost, ISub } from 'types';
 import http from './ApiClient';
 
 export const uploadImageSub = async (
@@ -11,5 +11,10 @@ export const uploadImageSub = async (
     },
   };
   const { data } = await http.post(`/subs/${subName}/image`, formData, config);
+  return data;
+};
+
+export const searchSub = async (searchString: string): Promise<ISub[]> => {
+  const { data } = await http.get(`/subs/search/${searchString}`);
   return data;
 };

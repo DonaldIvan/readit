@@ -1,12 +1,14 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import useSWR from 'swr';
 import Sidebar from 'components/Sidebar';
 import { ISub } from 'types';
 import { postPost } from 'services/PostService';
+import { useAuthState } from 'context/auth';
 
 const Submit = (): JSX.Element => {
+  const { authenticated } = useAuthState();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
@@ -16,7 +18,12 @@ const Submit = (): JSX.Element => {
   const { data: sub, error } = useSWR<ISub>(
     subName ? `/subs/${subName}` : null,
   );
-  if (error) router.push('/');
+
+  error && router.push('/');
+
+  useEffect(() => {
+    !authenticated && router.push('/login');
+  }, [authenticated, router]);
 
   const submitPost = async (event: FormEvent) => {
     event.preventDefault();
