@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import { cn } from "@/lib/utils";
 import "@/styles/globals.css";
 import { Inter } from "next/font/google";
+import { Toaster } from "@/components/ui/Toaster";
 
 export const metadata = {
   title: "Breadit",
@@ -24,6 +25,7 @@ const Layout = ({ children }: AppWithChildrenProps) => {
         <div className="container h-full pt-12 mx-auto max-w-7xl">
           {children}
         </div>
+        <Toaster />
       </body>
     </html>
   );
