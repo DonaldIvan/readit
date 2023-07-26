@@ -44,7 +44,7 @@
     "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.263.1",
     "nanoid": "^4.0.2",
-    "next": "13.4.12",
+    "next": "13.4.11",
     "next-auth": "^4.22.3",
     "postcss": "8.4.27",
     "prisma": "^5.0.0",
