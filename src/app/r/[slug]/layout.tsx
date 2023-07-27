@@ -89,15 +89,17 @@ const Layout: FC<Props> = async ({ children, params: { slug } }) => {
                   subredditName={subreddit.name}
                 />
               ) : null}
-              <Link
-                className={buttonVariants({
-                  variant: "outline",
-                  className: "w-full mb-6",
-                })}
-                href={`/r/${slug}/submit`}
-              >
-                Create Post
-              </Link>
+              {session?.user && (
+                <Link
+                  className={buttonVariants({
+                    variant: "outline",
+                    className: "w-full mb-6",
+                  })}
+                  href={`/r/${slug}/submit`}
+                >
+                  Create Post
+                </Link>
+              )}
             </dl>
           </div>
         </div>
