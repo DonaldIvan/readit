@@ -32,7 +32,7 @@
     "@tailwindcss/forms": "^0.5.4",
     "@tailwindcss/typography": "^0.5.9",
     "@tanstack/react-query": "^4.32.0",
-    "@uploadthing/react": "^5.2.0",
+    "@uploadthing/react": "^4.0.0",
     "@upstash/redis": "^1.22.0",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
@@ -58,7 +58,7 @@
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.6",
-    "uploadthing": "^5.2.1",
+    "uploadthing": "^4.0.0",
     "zod": "^3.21.4"
   },
   "devDependencies": {
