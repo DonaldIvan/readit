@@ -28,7 +28,6 @@ const PostVoteClient = ({
   const [currentVote, setCurrentVote] = useState(initialVote);
   const prevVote = usePrevious(currentVote);
 
-  // ensure sync with server
   useEffect(() => {
     setCurrentVote(initialVote);
   }, [initialVote]);

@@ -15,7 +15,6 @@ export const PATCH = async (req: Request) => {
       return new Response("Unauthorized", { status: 401 });
     }
 
-    // if no existing vote, create a new vote
     await db.comment.create({
       data: {
         text,

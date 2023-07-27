@@ -1,14 +1,13 @@
-import { INFINITE_SCROLL_PAGINATION_RESULTS } from '@/config'
-import { getAuthSession } from '@/lib/auth'
-import { db } from '@/lib/db'
-import PostFeed from '../PostFeed'
-import { notFound } from 'next/navigation'
+import { INFINITE_SCROLL_PAGINATION_RESULTS } from "@/config";
+import { getAuthSession } from "@/lib/auth";
+import { db } from "@/lib/db";
+import PostFeed from "../PostFeed";
+import { notFound } from "next/navigation";
 
 const CustomFeed = async () => {
-  const session = await getAuthSession()
+  const session = await getAuthSession();
 
-  // only rendered if session exists, so this will not happen
-  if (!session) return notFound()
+  if (!session) return notFound();
 
   const followedCommunities = await db.subscription.findMany({
     where: {
@@ -17,18 +16,18 @@ const CustomFeed = async () => {
     include: {
       subreddit: true,
     },
-  })
+  });
 
   const posts = await db.post.findMany({
     where: {
       subreddit: {
         name: {
-          in: followedCommunities.map((sub) => sub.subreddit.name),
+          in: followedCommunities.map((sub) => sub.subreddit?.name ?? ""),
         },
       },
     },
     orderBy: {
-      createdAt: 'desc',
+      createdAt: "desc",
     },
     include: {
       votes: true,
@@ -37,9 +36,9 @@ const CustomFeed = async () => {
       subreddit: true,
     },
     take: INFINITE_SCROLL_PAGINATION_RESULTS,
-  })
+  });
 
-  return <PostFeed initialPosts={posts} />
-}
+  return <PostFeed initialPosts={posts} />;
+};
 
-export default CustomFeed
+export default CustomFeed;
